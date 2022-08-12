@@ -47,20 +47,20 @@ To execute the pipeline on test dataset run:
 ### Own data
 Start running your own analysis either by using flags as shown below:
 
-    ```
-    nextflow run nanjalaruth/hla_typing_using_HLA-LA -profile slurm -resume --input "*.bam" --reference_genome "path to the graph reference genome"  
-    ```
+```
+nextflow run nanjalaruth/hla_typing_using_HLA-LA -profile slurm -resume --input "*.bam" --reference_genome "path to the graph reference genome"  
+```
  or run your own analysis by modifying the conf/test.config file to suit the path to your data location and then run the command as below:
  
-    ```
-    nextflow run nanjalaruth/hla_typing_using_HLA-LA -profile slurm -c <path to your edited config file> -resume
-    ```
+ ```
+ nextflow run nanjalaruth/hla_typing_using_HLA-LA -profile slurm -c <path to your edited config file> -resume
+ ```
     
 ## To run the updated version of this pipeline, run:
 
-    ```
-    nextflow pull nanjalaruth/hla_typing_using_HLA-LA
-    ```
+ ```
+ nextflow pull nanjalaruth/hla_typing_using_HLA-LA
+ ```
     
 ## Arguments
 

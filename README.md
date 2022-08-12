@@ -8,6 +8,13 @@ See the [Paper](https://academic.oup.com/bioinformatics/article/35/21/4394/54267
 
 The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool to run tasks across multiple compute infrastructures in a very portable manner. It comes with docker and singularity containers making installation trivial and results highly reproducible.
 
+The pipeline takes in bam files as input. As a prerequisite, ensure your bam files are located within position 29mb -34mb on chromosome 6.
+If not, you can extract the files using:
+```
+samtools index "path to sorted_bam"
+samtools view -b "path to sorted_bam" "6:29000000-34000000" > "your output file"
+```
+
 ## Installation 
 
 1. Nextflow
@@ -61,7 +68,7 @@ Start running your own analysis either by using flags as shown below:
 | Argument  | Usage                            | Description                                                          |
 |-----------|----------------------------------|----------------------------------------------------------------------|
 | -profile  | \<base,slurm\>                    | Configuration profile to use. Slurm is a job scheduler, you could otherwise use pbs                                       |
-| --input  | \</project/\*.bam\> | Directory pattern for fastq files.                                   |
+| --input  | \</project/\*.bam\> | Directory pattern for bam files.                                   |
 | --reference_genome    | \<hg19\>              | Path to the reference genome to which the samples will be mapped |
 
 

@@ -3,16 +3,29 @@
 
 ## Introduction
 
-The pipeline does Human Leukocyte Antigen (HLA) typing using HLA-LA from high-throughput sequencing data.
+The pipeline does Human Leukocyte Antigen (HLA) typing using HLA-LA.
 See the [Paper](https://academic.oup.com/bioinformatics/article/35/21/4394/5426702) and the [GitHub](https://github.com/DiltheyLab/HLA-LA) repo.
 
 The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool to run tasks across multiple compute infrastructures in a very portable manner. It comes with docker and singularity containers making installation trivial and results highly reproducible.
 
 ## Installation 
-1. [Nextflow](https://www.nextflow.io/docs/latest/getstarted.html)
+
+1. Nextflow
+```
+wget -qO- https://get.nextflow.io | bash
+```
 2. HLA-LA
 ```
 conda install -c bioconda hla-la
+```
+3. Reference graph
+- Download the data package (2.3G)
+```
+wget http://www.well.ox.ac.uk/downloads/PRG_MHC_GRCh38_withIMGT.tar.gz
+```
+- Index the graph
+```
+HLA-LA.pl --action prepareGraph --PRG_graph_dir PRG_MHC_GRCh38_withIMGT
 ```
 
 ## Running the pipeline

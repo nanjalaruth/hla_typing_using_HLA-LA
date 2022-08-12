@@ -23,7 +23,7 @@ conda install -c bioconda hla-la
 ```
 wget http://www.well.ox.ac.uk/downloads/PRG_MHC_GRCh38_withIMGT.tar.gz
 ```
-- Index the graph
+- Index the graph, can take a few hours and might take up to 40G of memory.
 ```
 HLA-LA.pl --action prepareGraph --PRG_graph_dir PRG_MHC_GRCh38_withIMGT
 ```

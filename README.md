@@ -61,7 +61,7 @@ Start running your own analysis either by using flags as shown below:
 | Argument  | Usage                            | Description                                                          |
 |-----------|----------------------------------|----------------------------------------------------------------------|
 | -profile  | \<base,slurm\>                    | Configuration profile to use. Slurm is a job scheduler, you could otherwise use pbs                                       |
-| --input  | \</project/\*\_{R1,R2}\*.fastq\> | Directory pattern for fastq files.                                   |
+| --input  | \</project/\*.bam\> | Directory pattern for fastq files.                                   |
 | --reference_genome    | \<hg19\>              | Path to the reference genome to which the samples will be mapped |
 
 

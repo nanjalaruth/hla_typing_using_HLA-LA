@@ -1,14 +1,10 @@
 # HLA-typing using HLA-LA tool (Nextflow pipeline)
 [![Nextflow](https://img.shields.io/badge/nextflow-%E2%89%A520.04.0-brightgreen.svg)](https://www.nextflow.io/)
 
-
-
-
 ## Introduction
 
 The pipeline does Human Leukocyte Antigen (HLA) typing using HLA-LA from high-throughput sequencing data.
-[Paper](https://academic.oup.com/bioinformatics/article/35/21/4394/5426702)
-[GitHub](https://github.com/DiltheyLab/HLA-LA)
+See the [Paper](https://academic.oup.com/bioinformatics/article/35/21/4394/5426702) and the [GitHub](https://github.com/DiltheyLab/HLA-LA) repo.
 
 The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool to run tasks across multiple compute infrastructures in a very portable manner. It comes with docker and singularity containers making installation trivial and results highly reproducible.
 
@@ -51,7 +47,7 @@ Start running your own analysis either by using flags as shown below:
 ### Required Arguments
 | Argument  | Usage                            | Description                                                          |
 |-----------|----------------------------------|----------------------------------------------------------------------|
-| -profile  | \<base,slurm\>                    | Configuration profile to use.                                       |
+| -profile  | \<base,slurm\>                    | Configuration profile to use. slurm is a job scheduler, you could otherwise use pbs                                       |
 | --input  | \</project/\*\_{R1,R2}\*.fastq\> | Directory pattern for fastq files.                                   |
 | --reference_genome    | \<hg19\>              | Path to the reference genome to which the samples will be mapped |
 

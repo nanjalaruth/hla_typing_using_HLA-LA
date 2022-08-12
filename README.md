@@ -41,13 +41,13 @@ The pipeline does not require installation as `NextFlow` will automatically fetc
 ### Test data
 To execute the pipeline on test dataset run:
 
-    ```bash
+    ```
     nextflow run nanjalaruth/HLA-typing -profile test -r main --reference_genome "path to the graph reference genome <hg19>" -resume
     ```
 ### Own data
 Start running your own analysis either by using flags as shown below:
 
-    ```bash
+    ```
     nextflow run nanjalaruth/hla_typing_using_HLA-LA -profile slurm -resume --input "*.bam" --reference_genome "path to the graph reference genome"  
     ```
  or run your own analysis by modifying the conf/test.config file to suit the path to your data location and then run the command as below:
@@ -58,7 +58,7 @@ Start running your own analysis either by using flags as shown below:
     
 ## To run the updated version of this pipeline, run:
 
-    ```bash
+    ```
     nextflow pull nanjalaruth/hla_typing_using_HLA-LA
     ```
     

@@ -1,18 +1,18 @@
 nextflow.enable.dsl=2
 
-<<<<<<< HEAD
+
 params.input = "/cbio/projects/013/custom-bam.ruth/selected/rest/*/*.bam"
 params.graph = "/users/nanje/miniconda3/opt/hla-la/graphs/PRG_MHC_GRCh38_withIMGT"
 
 graph_ch = Channel.fromPath(params.graph)
-=======
+
 params.input = "/cbio/projects/013/custom-bam.ruth/selected/*/*.bam"
 // params.index = "/cbio/projects/013/custom-bam.ruth/selected/*/*.bam.bai"
 params.reference_genome = "/users/nanje/miniconda3/opt/hla-la/graphs/PRG_MHC_GRCh38_withIMGT"
 
 // index_ch = Channel.fromPath(params.index)
 graph_ch = Channel.fromPath(params.reference_genome)
->>>>>>> a4b5b608cfc48723d0b003a17f64bca6063e027a
+
 
 process hla_typing {
     tag "Performing HLA typing using HLA-LA"
@@ -48,14 +48,13 @@ process hla_typing {
 }
 
 workflow{
-<<<<<<< HEAD
-=======
+
     // input_ch = Channel
     //     .fromPath( params.input )
     //     .map { row -> [ file(row).baseName, [ file( row) ] ] }
     // .combine(graph_ch)
     
->>>>>>> a4b5b608cfc48723d0b003a17f64bca6063e027a
+
    input_ch = Channel.fromPath([params.input])
         .map{bam -> [file(bam).getSimpleName(), file(bam), file("${bam}.bai")]}
         .combine(graph_ch)

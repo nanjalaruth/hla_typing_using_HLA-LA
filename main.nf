@@ -48,9 +48,15 @@ workflow{
     //     .map { row -> [ file(row).baseName, [ file( row) ] ] }
     // .combine(graph_ch)
     
+   //BAM files 
+    //input_ch = Channel.fromPath([params.input])
+      //      .map{bam -> [file(bam).getSimpleName(), file(bam), file("${bam}.bai")]}
+        //    .combine(graph_ch)
+    // input_ch.view()
 
-   input_ch = Channel.fromPath([params.input])
-        .map{bam -> [file(bam).getSimpleName(), file(bam), file("${bam}.bai")]}
+    //CRAM files
+    input_ch = Channel.fromPath([params.input])
+        .map{bam -> [file(bam).getSimpleName(), file(bam), file("${bam}.crai")]}
         .combine(graph_ch)
     // input_ch.view()
 

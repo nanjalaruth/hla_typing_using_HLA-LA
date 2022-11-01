@@ -5,7 +5,7 @@ params.graph = "/users/nanje/miniconda3/opt/hla-la/graphs/PRG_MHC_GRCh38_withIMG
 
 graph_ch = Channel.fromPath(params.graph)
 
-params.input = "/cbio/projects/013/custom-bam.ruth/selected/*/*.bam"
+//params.input = "/cbio/projects/013/custom-bam.ruth/selected/*/*.bam"
 // params.index = "/cbio/projects/013/custom-bam.ruth/selected/*/*.bam.bai"
 params.reference_genome = "/users/nanje/miniconda3/opt/hla-la/graphs/PRG_MHC_GRCh38_withIMGT"
 graph_ch = Channel.fromPath(params.reference_genome)

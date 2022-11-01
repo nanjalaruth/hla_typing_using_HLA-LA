@@ -1,9 +1,9 @@
 nextflow.enable.dsl=2
 
 params.input = "/cbio/projects/013/custom-bam.ruth/selected/rest/*/*.bam"
-params.graph = "/users/nanje/miniconda3/opt/hla-la/graphs/PRG_MHC_GRCh38_withIMGT"
+// params.graph = "/users/nanje/miniconda3/opt/hla-la/graphs/PRG_MHC_GRCh38_withIMGT"
 
-graph_ch = Channel.fromPath(params.graph)
+// graph_ch = Channel.fromPath(params.graph)
 
 //params.input = "/cbio/projects/013/custom-bam.ruth/selected/*/*.bam"
 // params.index = "/cbio/projects/013/custom-bam.ruth/selected/*/*.bam.bai"
@@ -20,7 +20,7 @@ process hla_typing {
         tuple val(dataset), path(reads), path(index), path(graph)
 
     script:
-        out = "/scratch3/users/nanje/HLA-LA/output"
+        out = "/users/kir-luo/ypz679/devel/hla-la_working_dir"
         hla_perl_folder = "/users/kir-luo/ypz679/devel/HLA-LA/src"
         """
         #HLA typing script

@@ -21,9 +21,10 @@ process hla_typing {
 
     script:
         out = "/scratch3/users/nanje/HLA-LA/output"
+        hla_perl_folder = "/users/kir-luo/ypz679/devel/HLA-LA/src"
         """
         #HLA typing script
-        \$(pwd)/HLA-LA.pl --BAM ${reads} --graph ${graph} --sampleID ${dataset} --workingDir ${out} --maxThreads 10
+        ${hla_perl_folder}/HLA-LA.pl --BAM ${reads} --graph ${graph} --sampleID ${dataset} --workingDir ${out} --maxThreads 10
 
         #Extract column 3 
         #cut -f 3 ${out}/${dataset}/hla/R1_bestguess_G.txt > test

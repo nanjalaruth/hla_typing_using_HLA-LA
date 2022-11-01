@@ -23,7 +23,7 @@ process hla_typing {
         out = "/scratch3/users/nanje/HLA-LA/output"
         """
         #HLA typing script
-        $(pwd)/HLA-LA.pl --BAM ${reads} --graph ${graph} --sampleID ${dataset} --workingDir ${out} --maxThreads 10
+        \$(pwd)/HLA-LA.pl --BAM ${reads} --graph ${graph} --sampleID ${dataset} --workingDir ${out} --maxThreads 10
 
         #Extract column 3 
         #cut -f 3 ${out}/${dataset}/hla/R1_bestguess_G.txt > test

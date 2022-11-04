@@ -19,10 +19,13 @@ process hla_typing {
     input:
         tuple val(dataset), path(reads), path(index), path(graph)
 
+    output:
+        path("GGVP.hped")
+
     script:
         out = "/users/kir-luo/ypz679/devel/hla-la_working_dir"
         hla_perl_folder = "/users/kir-luo/ypz679/devel/HLA-LA/src"
-        output = "/users/kir-luo/ypz679/devel/hla-la_working_dir/GGVP.hped"
+
         """
         #HLA typing script
         ${hla_perl_folder}/HLA-LA.pl --BAM ${reads} --graph ${graph} --sampleID ${dataset} --workingDir ${out} --maxThreads 10
@@ -38,7 +41,7 @@ process hla_typing {
         #add the sample name column twice
         for i in {1..2}; do sed -i 's/^/${dataset}\\t/' test2 ; done 
         # Combine all the output
-        cat test2 > ${output}
+        cat test2 > GGVP.hped
         """        
 }
 

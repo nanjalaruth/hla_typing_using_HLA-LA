@@ -21,7 +21,7 @@ process hla_typing {
 
     script:
         out = "/users/kir-luo/ypz679/devel/hla-la_working_dir"
-        hla_perl_folder = "/users/kir-luo/ypz679/devel/HLA-LA/src"
+        hla_perl_folder = "/users/kir-luo/ypz679/devel/hla_la/HLA-LA/src"
 
         """
         #HLA typing script

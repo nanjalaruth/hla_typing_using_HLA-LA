@@ -13,7 +13,7 @@ process hla_typing {
         tuple val(dataset), path(reads), path(index), path(graph)
 
     output:
-        path("GGVP.hped")
+        path("${dataset}.ped")
 
     script:
         out = "/users/kir-luo/ypz679/devel/hla-la_working_dir"
@@ -33,17 +33,19 @@ process hla_typing {
         for i in {1..4}; do sed -i "s/^/0\\t/" ${dataset}.ped ; done
         #add the sample name column twice
         for i in {1..2}; do sed -i "s/^/${dataset}\\t/" ${dataset}.ped ; done 
-        #cat ${dataset}.ped >> GGVP.hped
         """    
 }
 
 process concatenateHpedFiles{
     publishDir "./output/hla_types", mode: 'copy', overwrite: true
-    tag "concatenating fped files"
+    tag "concatenating hped files"
+
     input:
 	path ped_files
+
     output:
 	path "GGVP.hped"
+
     script:
 	"""
 	cat *.hped > GGVP.hped

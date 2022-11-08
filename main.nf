@@ -1,15 +1,8 @@
 nextflow.enable.dsl=2
 
 params.input = "/cbio/projects/013/custom-bam.ruth/selected/rest/*/*.bam"
-// params.graph = "/users/nanje/miniconda3/opt/hla-la/graphs/PRG_MHC_GRCh38_withIMGT"
-
-// graph_ch = Channel.fromPath(params.graph)
-
-//params.input = "/cbio/projects/013/custom-bam.ruth/selected/*/*.bam"
-// params.index = "/cbio/projects/013/custom-bam.ruth/selected/*/*.bam.bai"
 params.reference_genome = "/users/nanje/miniconda3/opt/hla-la/graphs/PRG_MHC_GRCh38_withIMGT"
 graph_ch = Channel.fromPath(params.reference_genome)
-
 
 process hla_typing {
     tag "Performing HLA typing using HLA-LA"
@@ -20,7 +13,7 @@ process hla_typing {
         tuple val(dataset), path(reads), path(index), path(graph)
 
     output:
-        path("GGVP.hped")
+        path("${dataset}.ped")
 
     script:
         out = "/users/kir-luo/ypz679/devel/hla-la_working_dir"
@@ -31,25 +24,19 @@ process hla_typing {
         ${hla_perl_folder}/HLA-LA.pl --BAM ${reads} --graph ${graph} --sampleID ${dataset} --workingDir ${out} --maxThreads 10
 
         #Extract column 3 
-        cut -f 3 ${out}/${dataset}/hla/R1_bestguess_G.txt > test
+        cut -f 3 ${out}/${dataset}/hla/R1_bestguess_G.txt > ${dataset}.test
         #Transpose column to row
-        tr "\\n" "\\t" < test > test1
+        tr "\\n" "\\t" < ${dataset}.test > ${dataset}.test1
         #remove 1st column
-        cut -f 2-17 test1 > test2
+        cut -f 2-17 ${dataset}.test1 > ${dataset}.ped
         #add 0 for the first 4 columns
-        for i in {1..4}; do sed -i "s/^/0\\t/" test2 ; done
+        for i in {1..4}; do sed -i "s/^/0\\t/" ${dataset}.ped ; done
         #add the sample name column twice
         for i in {1..2}; do sed -i "s/^/${dataset}\\t/" ${dataset}.ped ; done 
         """        
 }
 
-workflow{
-
-    // input_ch = Channel
-    //     .fromPath( params.input )
-    //     .map { row -> [ file(row).baseName, [ file( row) ] ] }
-    // .combine(graph_ch)
-    
+workflow{    
    //BAM files 
     //input_ch = Channel.fromPath([params.input])
       //      .map{bam -> [file(bam).getSimpleName(), file(bam), file("${bam}.bai")]}

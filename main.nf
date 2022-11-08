@@ -19,9 +19,6 @@ process hla_typing {
     input:
         tuple val(dataset), path(reads), path(index), path(graph)
 
-    output:
-        path("GGVP.hped")
-
     script:
         out = "/users/kir-luo/ypz679/devel/hla-la_working_dir"
         hla_perl_folder = "/users/kir-luo/ypz679/devel/HLA-LA/src"

@@ -63,7 +63,5 @@ workflow{
     // input_ch.view()
 
     out_ch = hla_typing(input_ch)
-    Channel
-    .of(out_ch)
-    .collectFile(name: 'GGVP.hped', newLine: true)
+    out_ch.collectFile(name: 'GGVP.hped', newLine: true)
 }

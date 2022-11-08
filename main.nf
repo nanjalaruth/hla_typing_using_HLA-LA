@@ -50,6 +50,6 @@ workflow{
         .combine(graph_ch)
     // input_ch.view()
 
-    hla_typing(input_ch)
-    // out_ch.collectFile(name: "GGVP.hped", newLine: true)
+    out_ch = hla_typing(input_ch)
+    out_ch.collect().view
 }

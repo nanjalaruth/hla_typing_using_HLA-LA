@@ -51,5 +51,5 @@ workflow{
     // input_ch.view()
 
     out_ch = hla_typing(input_ch)
-    out_ch.collect().view
+    out_ch.collect().view()
 }

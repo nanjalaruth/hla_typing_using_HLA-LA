@@ -33,9 +33,22 @@ process hla_typing {
         for i in {1..4}; do sed -i "s/^/0\\t/" ${dataset}.ped ; done
         #add the sample name column twice
         for i in {1..2}; do sed -i "s/^/${dataset}\\t/" ${dataset}.ped ; done 
-        cat ${dataset}.ped >> GGVP.hped
-        """        
+        #cat ${dataset}.ped >> GGVP.hped
+        """    
 }
+
+process concatenateHpedFiles{
+    publishDir "./output/hla_types", mode: 'copy', overwrite: true
+    tag "concatenating fped files"
+    input:
+	path ped_files
+    output:
+	path "GGVP.hped"
+    script:
+	"""
+	cat *.hped > GGVP.hped
+	"""
+}    
 
 workflow{    
    //BAM files 
@@ -51,5 +64,6 @@ workflow{
     // input_ch.view()
 
     out_ch = hla_typing(input_ch)
-    out_ch.collect().view()
+    out_ch.collect().view().set { hped_files }
+    concatenateHpedFiles(hped_files)
 }

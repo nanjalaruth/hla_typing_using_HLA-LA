@@ -41,7 +41,7 @@ process hla_typing {
         #add the sample name column twice
         for i in {1..2}; do sed -i "s/^/${dataset}\\t/" test2 ; done 
         # Combine all the output
-        cat test2 >> GGVP.hped
+        cat ${dataset}/test2 >> GGVP.hped
         """        
 }
 

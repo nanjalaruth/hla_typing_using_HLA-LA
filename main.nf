@@ -39,7 +39,7 @@ process hla_typing {
         #add 0 for the first 4 columns
         for i in {1..4}; do sed -i "s/^/0\\t/" test2 ; done
         #add the sample name column twice
-        for i in {1..2}; do sed -i "s/^/${dataset}\\t/" test2 ; done 
+        for i in {1..2}; do sed -i "s/^/${dataset}\\t/" ${dataset}.ped ; done 
         """        
 }
 
@@ -62,6 +62,6 @@ workflow{
         .combine(graph_ch)
     // input_ch.view()
 
-    out_ch = hla_typing(input_ch)
-    out_ch.collectFile(name: "GGVP.hped", newLine: true)
+    hla_typing(input_ch)
+    // out_ch.collectFile(name: "GGVP.hped", newLine: true)
 }

@@ -48,7 +48,7 @@ process concatenateHpedFiles{
 
     script:
 	"""
-	cat *.hped > GGVP.hped
+	cat *.ped > GGVP.hped
 	"""
 }    
 

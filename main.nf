@@ -6,7 +6,7 @@ graph_ch = Channel.fromPath(params.reference_genome)
 
 process hla_typing {
     tag "Performing HLA typing using HLA-LA"
-    publishDir "./output/hla_types", mode: 'copy', overwrite: true
+    // publishDir "./output/hla_types", mode: 'copy', overwrite: true
     label "medium"
     
     input:
@@ -67,6 +67,6 @@ workflow{
     // input_ch.view()
 
     out_ch = hla_typing(input_ch)
-    out_ch.collect().view().set { hped_files }
+    out_ch.collect().set { hped_files }
     concatenateHpedFiles(hped_files)
 }

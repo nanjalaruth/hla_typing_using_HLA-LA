@@ -89,7 +89,7 @@ workflow{
     // Create HLA ped files
     ped_ch = out_ch.collect()
         .map{ name, folder -> 
-                        folder_path = path(folder)
+                        folder_path = file(folder)
                         return [name, folder_path] 
                     }
     ped_ch.view()

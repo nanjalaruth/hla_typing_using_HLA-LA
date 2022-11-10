@@ -4,7 +4,6 @@ params.input = "/cbio/projects/013/custom-bam.ruth/selected/rest/*/*.bam"
 params.reference_genome = "/users/nanje/miniconda3/opt/hla-la/graphs/PRG_MHC_GRCh38_withIMGT"
 graph_ch = Channel.fromPath(params.reference_genome)
 
-// ${hla_perl_folder}/
 process hla_typing {
     tag "Performing HLA typing using HLA-LA"
     label "medium"
@@ -17,13 +16,13 @@ process hla_typing {
         path("${dataset}_symlink")
 
     script:
-        // out = "/users/kir-luo/ypz679/devel/hla-la_working_dir"
-        // hla_perl_folder = "/users/kir-luo/ypz679/devel/HLA-LA/src"
-        out = "/scratch3/users/nanje/HLA-LA"
+        out = "/users/kir-luo/ypz679/devel/hla-la_working_dir"
+        hla_perl_folder = "/users/kir-luo/ypz679/devel/HLA-LA/src"
+        // out = "/scratch3/users/nanje/HLA-LA"
 
         """
         #HLA typing script
-        HLA-LA.pl --BAM ${reads} --graph ${graph} --sampleID ${dataset} --workingDir ${out} --maxThreads 10
+        ${hla_perl_folder}/HLA-LA.pl --BAM ${reads} --graph ${graph} --sampleID ${dataset} --workingDir ${out} --maxThreads 10
         ln -s ${out} ${dataset}_symlink
         """
         

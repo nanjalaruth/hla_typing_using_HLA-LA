@@ -86,7 +86,7 @@ workflow{
     // input_ch.view()
 
     out_ch = hla_typing(input_ch)
-    out_ch.view()
+    out_ch.collect().view()
     // out_ch.collect().set { hped_files }
     // concatenateHpedFiles(hped_files)
 }

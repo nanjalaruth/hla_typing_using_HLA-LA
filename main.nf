@@ -89,8 +89,9 @@ workflow{
     // Create HLA ped files
     ped_ch = out_ch
         .map{folder -> [file(folder).getSimpleName(), file(folder)]}
-    createHpedFiles(ped_ch)
-    // ped_ch.collect().view()
-
-    // concatenateHpedFiles(hped_files)
+    
+    // Concatenate ped files
+    conc_ch = createHpedFiles(ped_ch)
+    hped_files = conc_ch.collect()
+    concatenateHpedFiles(hped_files)
 }

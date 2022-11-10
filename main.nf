@@ -70,7 +70,7 @@ process concatenateHpedFiles{
     script:
 	"""
 	cat *.ped | \
-    sed '1 i FID\tIID\tPID\tMID\tSEX\tPHENO\tA.1\tA.2\tB.1\tB.2\tC.1\tC.2\tDQA1.1\tDQA1.2\tDQB1.1\tDQB1.2\tDRB1.1\tDRB1.2\tDPA1.1\tDPA1.2\tDPB1.1\tDPB1.2' > GGVP.hped
+    sed '1 i FID\tIID\tPID\tMID\tSEX\tPHENO\tA.1\tA.2\tB.1\tB.2\tC.1\tC.2\tDQA1.1\tDQA1.2\tDQB1.1\tDQB1.2\tDRB1.1\tDRB1.2\tDPA1.1\tDPA1.2\tDPB1.1\tDPB1.2\tPop' > GGVP.hped
 	"""
 }    
 

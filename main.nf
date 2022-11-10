@@ -23,7 +23,7 @@ process hla_typing {
         """
         #HLA typing script
         ${hla_perl_folder}/HLA-LA.pl --BAM ${reads} --graph ${graph} --sampleID ${dataset} --workingDir ${out} --maxThreads 10
-        ln -s ${out} ${dataset}_symlink
+        ln -s ${out}/${dataset} ${dataset}_symlink
         """
         
 }

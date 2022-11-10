@@ -33,7 +33,7 @@ process createHpedFiles {
     cache "lenient"
 
     input:
-	tuple val(dataset), path(best_guess_folder)
+	path(best_guess_folder)
 
     output:
 	path("${dataset}.ped")
@@ -79,14 +79,17 @@ workflow{
     //        .combine(graph_ch)
     // input_ch.view()
 
+    // Type HLA alleles
     // CRAM files
     input_ch = Channel.fromPath([params.input])
         .map{bam -> [file(bam).getSimpleName(), file(bam), file("${bam}.crai")]}
         .combine(graph_ch)
-    // input_ch.view()
-
     out_ch = hla_typing(input_ch)
-    out_ch.collect().view()
-    // out_ch.collect().set { hped_files }
+    
+    // Create HLA ped files
+    out_ch.collect().set { hlatype_folder }
+    ped_ch = createHpedFiles(hlatype_folder)
+    ped_ch.collect().view()
+
     // concatenateHpedFiles(hped_files)
 }

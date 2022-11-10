@@ -33,7 +33,7 @@ process createHpedFiles {
     cache "lenient"
 
     input:
-	path(best_guess_folder)
+	tuple val(dataset), path(best_guess_folder)
 
     output:
 	path("${best_guess_folder}.ped")
@@ -89,10 +89,7 @@ workflow{
     // Create HLA ped files
     ped_ch = out_ch
         .map{folder -> [file(folder).getSimpleName(), file(folder)]}
-        
-    ped_ch.view()
-    // out_ch.collect().set { hlatype_folder }
-    // ped_ch = createHpedFiles(hlatype_folder)
+    createHpedFiles(ped_ch)
     // ped_ch.collect().view()
 
     // concatenateHpedFiles(hped_files)

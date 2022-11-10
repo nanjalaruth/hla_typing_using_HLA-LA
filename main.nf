@@ -36,7 +36,7 @@ process createHpedFiles {
 	path(best_guess_folder)
 
     output:
-	path("${dataset}.ped")
+	path("${best_guess_folder}.ped")
 
     script:
         """
@@ -87,9 +87,10 @@ workflow{
     out_ch = hla_typing(input_ch)
     
     // Create HLA ped files
-    out_ch.collect().set { hlatype_folder }
-    ped_ch = createHpedFiles(hlatype_folder)
-    ped_ch.collect().view()
+    out_ch.collect().view()
+    // out_ch.collect().set { hlatype_folder }
+    // ped_ch = createHpedFiles(hlatype_folder)
+    // ped_ch.collect().view()
 
     // concatenateHpedFiles(hped_files)
 }

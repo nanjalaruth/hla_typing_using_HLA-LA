@@ -91,7 +91,7 @@ process createCoverageTable {
         #remove 1st column
         cut -f 3- ${dataset}.test1 > ${dataset}.coverage
         #add the sample name column twice
-        sed -i "s/^/${dataset}\\t/" ${dataset}.coverage ; done 
+        sed -i "s/^/${dataset}\\t/" ${dataset}.coverage
         """    
 
 }

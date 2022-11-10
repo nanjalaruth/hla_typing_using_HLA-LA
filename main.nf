@@ -87,7 +87,7 @@ workflow{
     out_ch = hla_typing(input_ch)
     
     // Create HLA ped files
-    ped_ch = out_ch.collect()
+    ped_ch = out_ch()
         .map{ name, folder -> 
                         folder_path = file(folder)
                         return [name, folder_path] 

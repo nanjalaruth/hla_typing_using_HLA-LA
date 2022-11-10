@@ -72,6 +72,48 @@ process concatenateHpedFiles{
 	"""
 }    
 
+process createCoverageTable {
+    tag "creating coverage table"
+    cache "lenient"
+
+    input:
+	tuple val(dataset), path(best_guess_folder)
+
+    output:
+	path("${best_guess_folder}.coverage")
+
+    script:
+        """
+        #Extract column 3 
+        cut -f 3,6 ${best_guess_folder}/hla/R1_bestguess_G.txt > ${dataset}.test
+        #Transpose column to row
+        tr "\\n" "\\t" < ${dataset}.test > ${dataset}.test1
+        #remove 1st column
+        cut -f 3- ${dataset}.test1 > ${dataset}.coverage
+        #add the sample name column twice
+        sed -i "s/^/${dataset}\\t/" ${dataset}.coverage ; done 
+        """    
+
+}
+
+process concatenateCoverageFiles{
+    publishDir "./output/hla_types", mode: 'copy', overwrite: true
+    tag "concatenating coverage files"
+    cache "lenient"
+
+    input:
+	path coverage_files
+
+    output:
+	path "GGVP.coverage"
+
+    script:
+	"""
+	cat *.coverage | \
+    sed '1 i IID\tA.1\tcoverage\tA.2\tcoverage\tB.1\tcoverage\tB.2\tcoverage\tC.1\tcoverage\tC.2\tcoverage\tDQA1.1\tcoverage\tDQA1.2\tcoverage\tDQB1.1\tcoverage\tDQB1.2\tcoverage\tDRB1.1\tcoverage\tDRB1.2\tcoverage\tDPA1.1\tcoverage\tDPA1.2\tcoverage\tDPB1.1\tcoverage\tDPB1.2\tcoverage' > GGVP.coverage
+	"""
+}  
+
 workflow{    
    //BAM files 
     // input_ch = Channel.fromPath([params.input])
@@ -89,9 +131,18 @@ workflow{
     // Create HLA ped files
     ped_ch = out_ch
         .map{folder -> [file(folder).getSimpleName(), file(folder)]}
-    
-    // Concatenate ped files
     conc_ch = createHpedFiles(ped_ch)
+
+    // Concatenate ped files
     hped_files = conc_ch.collect()
     concatenateHpedFiles(hped_files)
+
+    // Create Coverage files
+    cov_ch = out_ch
+        .map{folder -> [file(folder).getSimpleName(), file(folder)]}
+    conca_ch = createCoverageTable(cov_ch)
+
+    // Concatenate coverage files
+    cov_files = conca_ch.collect()
+    concatenateCoverageFiles(cov_files)
 }

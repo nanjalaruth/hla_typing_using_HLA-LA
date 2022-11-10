@@ -87,7 +87,9 @@ workflow{
     out_ch = hla_typing(input_ch)
     
     // Create HLA ped files
-    out_ch.collect().view()
+    ped_ch = out_ch.collect()
+        .map(folder -> [file(folder.getSimpleName(), file(folder))])
+    ped_ch.view()
     // out_ch.collect().set { hlatype_folder }
     // ped_ch = createHpedFiles(hlatype_folder)
     // ped_ch.collect().view()

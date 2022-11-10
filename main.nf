@@ -50,6 +50,8 @@ process createHpedFiles {
         for i in {1..4}; do sed -i "s/^/0\\t/" ${dataset}.ped ; done
         #add the sample name column twice
         for i in {1..2}; do sed -i "s/^/${dataset}\\t/" ${dataset}.ped ; done 
+        #add population name to the end of the file
+        sed -i "s/$/\\tGGVP/" ${dataset}.ped
         """    
 
 }

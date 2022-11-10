@@ -88,10 +88,8 @@ workflow{
     
     // Create HLA ped files
     ped_ch = out_ch
-        .map{ name, folder -> 
-                        folder_path = file(folder)
-                        return [name, folder_path] 
-                    }
+        .map{folder -> [file(folder).getSimpleName(), file(folder)]}
+        
     ped_ch.view()
     // out_ch.collect().set { hlatype_folder }
     // ped_ch = createHpedFiles(hlatype_folder)

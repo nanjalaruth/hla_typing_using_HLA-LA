@@ -57,7 +57,7 @@ process createHpedFiles {
 }
 
 process concatenateHpedFiles{
-    publishDir "./output/hla_types", mode: 'copy', overwrite: true
+    publishDir "${params.outdir}/hla_types", mode: 'copy', overwrite: true
     tag "concatenating hped files"
     cache "lenient"
 
@@ -99,7 +99,7 @@ process createCoverageTable {
 }
 
 process concatenateCoverageFiles{
-    publishDir "./output/hla_types", mode: 'copy', overwrite: true
+    publishDir "${params.outdir}/hla_types", mode: 'copy', overwrite: true
     tag "concatenating coverage files"
     cache "lenient"
 

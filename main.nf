@@ -3,6 +3,7 @@ nextflow.enable.dsl=2
 params.input = "/cbio/projects/013/custom-bam.ruth/selected/rest/*/*.bam"
 params.reference_genome = "/users/nanje/miniconda3/opt/hla-la/graphs/PRG_MHC_GRCh38_withIMGT"
 graph_ch = Channel.fromPath(params.reference_genome)
+params.outdir = "./output"
 
 process hla_typing {
     tag "Performing HLA typing using HLA-LA"
@@ -70,7 +71,7 @@ process concatenateHpedFiles{
     script:
 	"""
 	cat *.ped | \
-    sed '1 i FID\tIID\tPID\tMID\tSEX\tPHENO\tA.1\tA.2\tB.1\tB.2\tC.1\tC.2\tDQA1.1\tDQA1.2\tDQB1.1\tDQB1.2\tDRB1.1\tDRB1.2\tDPA1.1\tDPA1.2\tDPB1.1\tDPB1.2\tPop' > GGVP.hped
+    sed '1 i FID\\tIID\\tPID\\tMID\\tSEX\\tPHENO\\tA.1\\tA.2\\tB.1\\tB.2\\tC.1\\tC.2\\tDQA1.1\\tDQA1.2\\tDQB1.1\\tDQB1.2\\tDRB1.1\\tDRB1.2\\tDPA1.1\\tDPA1.2\\tDPB1.1\\tDPB1.2\\tPop' > GGVP.hped
 	"""
 }    
 
@@ -112,7 +113,7 @@ process concatenateCoverageFiles{
     script:
 	"""
 	cat *.coverage | \
-    sed '1 i IID\tA.1\tcoverage\tA.2\tcoverage\tB.1\tcoverage\tB.2\tcoverage\tC.1\tcoverage\tC.2\tcoverage\tDQA1.1\tcoverage\tDQA1.2\tcoverage\tDQB1.1\tcoverage\tDQB1.2\tcoverage\tDRB1.1\tcoverage\tDRB1.2\tcoverage\tDPA1.1\tcoverage\tDPA1.2\tcoverage\tDPB1.1\tcoverage\tDPB1.2\tcoverage' > GGVP.coverage
+    sed '1 i IID\\tA.1\\tcoverage\\tA.2\\tcoverage\\tB.1\\tcoverage\\tB.2\\tcoverage\\tC.1\\tcoverage\\tC.2\\tcoverage\\tDQA1.1\\tcoverage\\tDQA1.2\\tcoverage\\tDQB1.1\\tcoverage\\tDQB1.2\\tcoverage\\tDRB1.1\\tcoverage\\tDRB1.2\\tcoverage\\tDPA1.1\\tcoverage\\tDPA1.2\\tcoverage\\tDPB1.1\\tcoverage\\tDPB1.2\\tcoverage' > GGVP.coverage
 	"""
 }  
 

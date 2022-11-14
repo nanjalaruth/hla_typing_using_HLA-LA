@@ -46,7 +46,7 @@ process createHpedFiles {
         #Transpose column to row
         tr "\\n" "\\t" < ${dataset}.test > ${dataset}.test1
         #remove 1st column
-        cut -f 2-17 ${dataset}.test1 > ${dataset}.ped
+        cut -f 2- ${dataset}.test1 > ${dataset}.ped
         #add 0 for the first 4 columns
         for i in {1..4}; do sed -i "s/^/0\\t/" ${dataset}.ped ; done
         #add the sample name column twice
@@ -71,7 +71,7 @@ process concatenateHpedFiles{
     script:
 	"""
 	cat *.ped | \
-    sed '1 i FID\\tIID\\tPID\\tMID\\tSEX\\tPHENO\\tA.1\\tA.2\\tB.1\\tB.2\\tC.1\\tC.2\\tDQA1.1\\tDQA1.2\\tDQB1.1\\tDQB1.2\\tDRB1.1\\tDRB1.2\\tDPA1.1\\tDPA1.2\\tDPB1.1\\tDPB1.2\\tPop' > GGVP.hped
+    sed '1 i FID\\tIID\\tPID\\tMID\\tSEX\\tPHENO\\tA.1\\tA.2\\tB.1\\tB.2\\tC.1\\tC.2\\tDQA1.1\\tDQA1.2\\tDQB1.1\\tDQB1.2\\tDRB1.1\\tDRB1.2\\tDPA1.1\\tDPA1.2\\tDPB1.1\\tDPB1.2\\tDRB3.1\\tDRB3.2\\tDRB4.1\\tDRB4.2\\tE.1\\tE.2\\tF.1\\tF.2\\tG.1\\tG.2\\tPop' > GGVP.hped
 	"""
 }    
 
@@ -113,7 +113,7 @@ process concatenateCoverageFiles{
     script:
 	"""
 	cat *.coverage | \
-    sed '1 i IID\\tA.1\\tcoverage\\tA.2\\tcoverage\\tB.1\\tcoverage\\tB.2\\tcoverage\\tC.1\\tcoverage\\tC.2\\tcoverage\\tDQA1.1\\tcoverage\\tDQA1.2\\tcoverage\\tDQB1.1\\tcoverage\\tDQB1.2\\tcoverage\\tDRB1.1\\tcoverage\\tDRB1.2\\tcoverage\\tDPA1.1\\tcoverage\\tDPA1.2\\tcoverage\\tDPB1.1\\tcoverage\\tDPB1.2\\tcoverage' > GGVP.coverage
+    sed '1 i IID\\tA.1\\tcoverage\\tA.2\\tcoverage\\tB.1\\tcoverage\\tB.2\\tcoverage\\tC.1\\tcoverage\\tC.2\\tcoverage\\tDQA1.1\\tcoverage\\tDQA1.2\\tcoverage\\tDQB1.1\\tcoverage\\tDQB1.2\\tcoverage\\tDRB1.1\\tcoverage\\tDRB1.2\\tcoverage\\tDPA1.1\\tcoverage\\tDPA1.2\\tcoverage\\tDPB1.1\\tcoverage\\tDPB1.2\\tcoverage\\tDRB3.1\\tcoverage\\tDRB3.2\\tcoverage\\tDRB4.1\\tcoverage\\tDRB4.2\\tcoverage\\tE.1\\tcoverage\\tE.2\\tcoverage\\tF.1\\tcoverage\\tF.2\\tcoverage\\tG.1\\tcoverage\\tG.2\\tcoverage' > GGVP.coverage
 	"""
 }  
 

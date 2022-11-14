@@ -113,7 +113,7 @@ process concatenateCoverageFiles{
     script:
 	"""
 	cat *.coverage | \
-    sed '1 IID\\tA.1\\tcoverage\\tA.2\\tcoverage\\tB.1\\tcoverage\\tB.2\\tcoverage\\tC.1\\tcoverage\\tC.2\\tcoverage\\tDQA1.1\\tcoverage\\tDQA1.2\\tcoverage\\tDQB1.1\\tcoverage\\tDQB1.2\\tcoverage\\tDRB1.1\\tcoverage\\tDRB1.2\\tcoverage\\tDPA1.1\\tcoverage\\tDPA1.2\\tcoverage\\tDPB1.1\\tcoverage\\tDPB1.2\\tcoverage' > GGVP.coverage
+    sed '1 i IID\\tA.1\\tcoverage\\tA.2\\tcoverage\\tB.1\\tcoverage\\tB.2\\tcoverage\\tC.1\\tcoverage\\tC.2\\tcoverage\\tDQA1.1\\tcoverage\\tDQA1.2\\tcoverage\\tDQB1.1\\tcoverage\\tDQB1.2\\tcoverage\\tDRB1.1\\tcoverage\\tDRB1.2\\tcoverage\\tDPA1.1\\tcoverage\\tDPA1.2\\tcoverage\\tDPB1.1\\tcoverage\\tDPB1.2\\tcoverage' > GGVP.coverage
 	"""
 }  
 

@@ -37,19 +37,11 @@ process removeAmbiguousGgroups{
 	tuple val(dataset), path(best_guess_folder)
 
     output:
-	path("perfectG.tsv")
+	path("${dataset}_perfectG.tsv")
 
     script:
-        """
-        #!/usr/bin/env Rscript
-
-        library(dplyr)
-
-        input <- read.table("${best_guess_folder}/hla/R1_bestguess_G.txt", header=TRUE)
-        input\$Allele <- if_else(input\$perfectG == 1, input\$Allele, "NA")
-        write.table(input\$Allele, "perfectG.tsv", col.names = T, row.names = F, quote = F, sep = "\\t")
-
-        """
+        template "ambigous.R"
+        
 
 }
 

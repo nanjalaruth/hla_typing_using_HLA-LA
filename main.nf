@@ -29,7 +29,7 @@ process hla_typing {
         
 }
 
-process createHpedFiles {
+process removeAmbiguousGgroups{
     tag "creating hped files"
     cache "lenient"
 
@@ -37,12 +37,36 @@ process createHpedFiles {
 	tuple val(dataset), path(best_guess_folder)
 
     output:
-	path("${best_guess_folder}.ped")
+	path("perfectG.tsv")
+
+    script:
+        """
+        #!/usr/bin/env Rscript
+
+        library(dplyr)
+
+        input <- read.table("${best_guess_folder}/hla/R1_bestguess_G.txt", header=TRUE)
+        input\$Allele <- if_else(input\$perfectG == 1, input\$Allele, "NA")
+        write.table(input\$Allele, "perfectG.tsv", col.names = T, row.names = F, quote = F, sep = "\\t")
+
+        """
+
+}
+
+process createHpedFiles {
+    tag "creating hped files"
+    cache "lenient"
+
+    input:
+	tuple val(dataset), path(perfectGfile)
+
+    output:
+	path("${dataset}.ped")
 
     script:
         """
         #Extract column 3 
-        cut -f 3 ${best_guess_folder}/hla/R1_bestguess_G.txt > ${dataset}.test
+        cut -f 3 ${perfectGfile} > ${dataset}.test
         #Transpose column to row
         tr "\\n" "\\t" < ${dataset}.test > ${dataset}.test1
         #remove 1st column
@@ -130,11 +154,13 @@ workflow{
         .map{bam -> [file(bam).getSimpleName(), file(bam), file("${bam}.crai")]}
         .combine(graph_ch)
     out_ch = hla_typing(input_ch)
-    
+
     // Create HLA ped files
     ped_ch = out_ch
         .map{folder -> [file(folder).getSimpleName(), file(folder)]}
-    conc_ch = createHpedFiles(ped_ch)
+        // Remove ambigous files
+    removeAmbiguousGgroups(ped_ch)
+    conc_ch = createHpedFiles(removeAmbiguousGgroups.out)
 
     // Concatenate ped files
     hped_files = conc_ch.collect()

@@ -37,7 +37,7 @@ process removeAmbiguousGgroups{
 	tuple val(dataset), path(best_guess_folder)
 
     output:
-	path("${dataset}_perfectG.tsv")
+	tuple val(dataset), path("${dataset}_perfectG.tsv")
 
     script:
         template "ambigous.R"
@@ -151,7 +151,8 @@ workflow{
     ped_ch = out_ch
         .map{folder -> [file(folder).getSimpleName(), file(folder)]}
         // Remove ambigous files
-    removeAmbiguousGgroups(ped_ch)
+    amb_ch = removeAmbiguousGgroups(ped_ch)
+    //amb_ch.view()
     conc_ch = createHpedFiles(removeAmbiguousGgroups.out)
 
     // Concatenate ped files
